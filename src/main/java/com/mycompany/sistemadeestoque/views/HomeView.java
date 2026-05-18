@@ -68,7 +68,7 @@ public class HomeView extends JFrame {
         menu.setLayout(new BoxLayout(menu, BoxLayout.Y_AXIS));
         menu.setBorder(new EmptyBorder(10, 15, 10, 15));
 
-        JButton btnDashboard = criarBotaoMenu("📊 Dashboard");
+        JButton btnDashboard = criarBotaoMenu("📊 Dashboard e Saida");
         JButton btnProdutos = criarBotaoMenu("📦 Lista de Produtos");
         JButton btnCadastrarProduto = criarBotaoMenu("➕ Cadastrar Produto");
         JButton btnSair = criarBotaoMenu("🚪 Sair");
