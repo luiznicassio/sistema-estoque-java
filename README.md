@@ -21,10 +21,10 @@ Luiz Fernando Nicassio de Oliveira
 ## Banco utilizado
 MySQL
 
-## Senha do banco
+## Senha do banco : 123456
 
 ```text
-1011
+123456
 ```
 
 ## Criação do banco de dados

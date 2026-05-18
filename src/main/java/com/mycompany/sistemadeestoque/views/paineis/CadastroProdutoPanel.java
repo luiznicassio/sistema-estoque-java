@@ -20,7 +20,7 @@ public class CadastroProdutoPanel extends JPanel {
         setLayout(new BorderLayout());
         setBackground(new Color(242, 244, 246));
 
-        // --- 1. PAINEL LATERAL (FORMULÁRIO DE CADASTRO) ---
+        //PAINEL LATERAL (FORMULÁRIO DE CADASTRO)
         JPanel painelEsquerdo = new JPanel(new BorderLayout());
         painelEsquerdo.setPreferredSize(new Dimension(420, 600)); // Largura ideal para 1200px
         painelEsquerdo.setBackground(Color.WHITE);
@@ -48,15 +48,20 @@ public class CadastroProdutoPanel extends JPanel {
         gbc.gridy = 1; gbc.insets = new Insets(0, 0, 45, 0);
         formContent.add(lblSub, gbc);
 
-        // Campos de Texto
+        // Campos de Texto e Seleção
         JTextField txtNome = criarCampo("Ex: Notebook Gamer");
         gbc.gridy = 2; gbc.insets = new Insets(10, 0, 5, 0);
         formContent.add(criarLabel("Nome do Produto"), gbc);
         gbc.gridy = 3; formContent.add(txtNome, gbc);
 
-        JTextField txtTipo = criarCampo("Ex: Eletrônicos");
+        // Substituição do JTextField pelo JComboBox estilizado
+        JComboBox<String> comboTipo = new JComboBox<>(new String[]{"Todos", "Eletrônicos", "Limpeza", "Alimentos"});
+        comboTipo.setPreferredSize(new Dimension(0, 42));
+        comboTipo.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        comboTipo.setBackground(Color.WHITE);
+        
         gbc.gridy = 4; formContent.add(criarLabel("Categoria"), gbc);
-        gbc.gridy = 5; formContent.add(txtTipo, gbc);
+        gbc.gridy = 5; formContent.add(comboTipo, gbc);
 
         // Linha Dupla: Preço e Quantidade lado a lado
         JPanel rowDados = new JPanel(new GridLayout(1, 2, 20, 0));
@@ -89,7 +94,7 @@ public class CadastroProdutoPanel extends JPanel {
 
         painelEsquerdo.add(formContent, BorderLayout.NORTH);
 
-        // --- 2. PAINEL CENTRAL (VISUALIZAÇÃO DE DADOS) ---
+        //PAINEL CENTRAL (VISUALIZAÇÃO DE DADOS) ---
         JPanel painelDireito = new JPanel(new BorderLayout());
         painelDireito.setOpaque(false);
         painelDireito.setBorder(new EmptyBorder(50, 60, 50, 60)); // Margens amplas para 1200px
@@ -99,7 +104,7 @@ public class CadastroProdutoPanel extends JPanel {
         lblLista.setForeground(new Color(45, 55, 72));
         lblLista.setBorder(new EmptyBorder(0, 0, 25, 0));
 
-        // Tabela Estilizada
+        //Tabela Estilizada
         String[] colunas = {"ID", "Nome", "Categoria", "Valor Unitário", "Quantidade"};
         tableModel = new DefaultTableModel(colunas, 0) {
             @Override
@@ -116,27 +121,34 @@ public class CadastroProdutoPanel extends JPanel {
         painelDireito.add(lblLista, BorderLayout.NORTH);
         painelDireito.add(scroll, BorderLayout.CENTER);
 
-        // --- LÓGICA DE AÇÕES ---
+        //LÓGICA DE AÇÕES
         btnSalvar.addActionListener(e -> {
             try {
                 String nome = txtNome.getText().trim();
-                String tipo = txtTipo.getText().trim();
+                String tipo = (String) comboTipo.getSelectedItem(); // Capturando item selecionado
                 String valStr = txtValor.getText().replace(",", ".");
 
-                if (nome.isEmpty() || tipo.isEmpty() || valStr.isEmpty() || txtQtd.getText().isEmpty()) {
+                // Confere se todos os campos estão preenchidos
+                if (nome.isEmpty() || tipo == null || tipo.isEmpty() || valStr.isEmpty() || txtQtd.getText().isEmpty()) {
                     throw new IllegalArgumentException("⚠️ Preencha todos os campos.");
                 }
-
+                
+                // Cria o objeto produto
                 Produto p = new Produto();
                 p.setNome(nome);
                 p.setTipo(tipo);
                 p.setValor(Float.parseFloat(valStr));
                 p.setQuantidadeEstoque(Integer.parseInt(txtQtd.getText()));
 
+                // Realiza o cadastro enviando o produto para a DAO
                 if (new ProdutoDAO().cadastrar(p)) {
                     lblMsg.setForeground(new Color(38, 166, 91));
                     lblMsg.setText("✅ Produto cadastrado com sucesso!");
-                    limparCampos(txtNome, txtTipo, txtValor, txtQtd);
+                    
+                    // Limpa os campos de texto e reseta a seleção do ComboBox
+                    limparCampos(txtNome, txtValor, txtQtd);
+                    comboTipo.setSelectedIndex(0); 
+                    
                     atualizarTabela();
                 }
 
@@ -172,7 +184,7 @@ public class CadastroProdutoPanel extends JPanel {
     }
 
     private void configurarTabela(JTable t) {
-        t.setRowHeight(45); // Linhas altas para leitura confortável
+        t.setRowHeight(45);
         t.setFont(new Font("SansSerif", Font.PLAIN, 14));
         t.setSelectionBackground(new Color(235, 244, 255));
         t.setSelectionForeground(Color.BLACK);
@@ -180,7 +192,6 @@ public class CadastroProdutoPanel extends JPanel {
         t.setGridColor(new Color(240, 240, 240));
         t.setFocusable(false);
         
-        // Cabeçalho da Tabela
         t.getTableHeader().setPreferredSize(new Dimension(0, 45));
         t.getTableHeader().setBackground(new Color(248, 249, 250));
         t.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 13));
@@ -191,7 +202,6 @@ public class CadastroProdutoPanel extends JPanel {
         tableModel.setRowCount(0);
         List<Produto> lista = new ProdutoDAO().listar();
         
-        // Inversão: Últimos cadastrados no topo
         for (int i = lista.size() - 1; i >= 0; i--) {
             Produto p = lista.get(i);
             tableModel.addRow(new Object[]{
@@ -201,7 +211,6 @@ public class CadastroProdutoPanel extends JPanel {
                 "R$ " + String.format("%.2f", p.getValor()), 
                 p.getQuantidadeEstoque()
             });
-            // Limite de 10 registros para a visualização rápida
             if (tableModel.getRowCount() >= 10) break;
         }
     }

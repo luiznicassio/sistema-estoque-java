@@ -4,11 +4,13 @@ public class Usuario {
 
     private int id;
     private String usuario;
-    private String senha; // senha pura (usada só antes de gerar hash)
+    private String senha; 
+    
 
-    public Usuario() {
-    }
+    //Construtor vazio para cadastro.
+    public Usuario() {}
 
+    //Construtor com ID para login.
     public Usuario(int id, String usuario, String senha) {
         this.id = id;
         setUsuario(usuario);
@@ -29,10 +31,10 @@ public class Usuario {
 
     public void setUsuario(String usuario) {
         if (usuario == null || usuario.trim().isEmpty()) {
-            throw new IllegalArgumentException("Usuário é obrigatório");
+            throw new IllegalArgumentException("Usuário é obrigatório.");
         }
         if (usuario.length() < 3) {
-            throw new IllegalArgumentException("Usuário deve ter pelo menos 3 caracteres");
+            throw new IllegalArgumentException("O usuário deve ter pelo menos 3 caracteres.");
         }
         this.usuario = usuario.trim();
     }
@@ -43,10 +45,10 @@ public class Usuario {
 
     public void setSenha(String senha) {
         if (senha == null || senha.trim().isEmpty()) {
-            throw new IllegalArgumentException("Senha é obrigatória");
+            throw new IllegalArgumentException("A senha é obrigatória.");
         }
         if (senha.length() < 6) {
-            throw new IllegalArgumentException("Senha deve ter pelo menos 6 caracteres");
+            throw new IllegalArgumentException("A senha deve ter pelo menos 6 caracteres.");
         }
         this.senha = senha.trim();
     }

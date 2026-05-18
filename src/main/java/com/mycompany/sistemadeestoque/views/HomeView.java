@@ -1,6 +1,5 @@
 package com.mycompany.sistemadeestoque.views;
 
-
 import com.mycompany.sistemadeestoque.models.Usuario;
 import com.mycompany.sistemadeestoque.views.paineis.CadastroProdutoPanel;
 import com.mycompany.sistemadeestoque.views.paineis.DashboardPanel;
@@ -10,12 +9,15 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
+//Classe View Home do usuário.
 public class HomeView extends JFrame {
 
+    //Variável com os dados do usuário.
     private Usuario usuarioLogado;
+    //Variável do painel de conteúdo.
     private JPanel painelConteudo;
 
-    // Cores do sistema
+    //Cores do sistema.
     private final Color COR_SIDEBAR = new Color(15, 23, 42);
     private final Color COR_HOVER = new Color(30, 41, 59);
     private final Color COR_BOTAO = new Color(15, 23, 42);
@@ -23,6 +25,7 @@ public class HomeView extends JFrame {
     private final Color COR_TOPO = Color.WHITE;
     private final Color COR_BACKGROUND = new Color(241, 245, 249);
 
+    //Construtor com os dados do usuário.
     public HomeView(Usuario usuario) {
         this.usuarioLogado = usuario;
 
@@ -133,24 +136,22 @@ public class HomeView extends JFrame {
 
         add(painelConteudo, BorderLayout.CENTER);
 
-        // EVENTOS
-        btnDashboard.addActionListener(e -> trocarPainel(new DashboardPanel()));
+        //Botões e seus eventos.
+           // Abre o dashboard
+            btnDashboard.addActionListener(e -> trocarPainel(new DashboardPanel()));
+            // Abre a lista de produtos
+            btnProdutos.addActionListener(e -> trocarPainel(new ListaProdutosPanel()));
+            // Abre o cadastro de produtos
+            btnCadastrarProduto.addActionListener(e -> trocarPainel(new CadastroProdutoPanel()));
+            // Faz o logout do sistema
+            btnSair.addActionListener(e -> sair());
 
-        btnProdutos.addActionListener(e ->
-                trocarPainel(new ListaProdutosPanel()));
-
-        btnCadastrarProduto.addActionListener(e ->
-                trocarPainel(new CadastroProdutoPanel()));
-
-        btnSair.addActionListener(e -> sair());
-
-        // Tela inicial
+        //Chama o método que carrega a página inicial do sistema: DashboardPanel.
         trocarPainel(new DashboardPanel());
     }
 
-    /**
-     * Troca o painel principal
-     */
+    
+     //Método que troca o painel.
     private void trocarPainel(JPanel novoPainel) {
         painelConteudo.removeAll();
         painelConteudo.add(novoPainel, BorderLayout.CENTER);
@@ -158,11 +159,9 @@ public class HomeView extends JFrame {
         painelConteudo.repaint();
     }
 
-    /**
-     * Botão estilizado do menu lateral
-     */
+    
+    //Método que cria o botão.
     private JButton criarBotaoMenu(String texto) {
-
         JButton botao = new JButton(texto);
 
         botao.setFocusPainted(false);
@@ -173,24 +172,18 @@ public class HomeView extends JFrame {
         botao.setBackground(COR_BOTAO);
 
         botao.setFont(new Font("SansSerif", Font.PLAIN, 15));
-
         botao.setHorizontalAlignment(SwingConstants.LEFT);
-
         botao.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
         botao.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
-
         botao.setBorder(new EmptyBorder(15, 20, 15, 20));
 
         // Hover
         botao.addMouseListener(new java.awt.event.MouseAdapter() {
-
             @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 botao.setOpaque(true);
                 botao.setBackground(COR_HOVER);
             }
-
             @Override
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 botao.setBackground(COR_BOTAO);
@@ -200,9 +193,8 @@ public class HomeView extends JFrame {
         return botao;
     }
 
-    /**
-     * Sai do sistema
-     */
+    
+    //Método que realiza o logout do sistema.
     private void sair() {
         dispose();
         new UsuarioLoginView().setVisible(true);

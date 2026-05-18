@@ -9,26 +9,26 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 
+//Classe View de login.
 public class UsuarioLoginView extends JFrame {
-
+    
     private JTextField txtUsuario;
     private JPasswordField txtSenha;
     private JButton btnLogin;
     private JLabel lblMensagem;
 
+    //Construtor.
     public UsuarioLoginView() {
 
         setTitle("Login - Sistema de Estoque");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
 
-        // Fundo principal
+        //Fundo principal
         getContentPane().setBackground(new Color(15, 23, 42));
         setLayout(new GridBagLayout());
 
-        // =========================
-        // CARD PRINCIPAL
-        // =========================
+        //Card principal 
         JPanel card = new JPanel(new GridBagLayout());
         card.setBackground(new Color(255, 255, 255));
         card.setPreferredSize(new Dimension(420, 520));
@@ -42,9 +42,8 @@ public class UsuarioLoginView extends JFrame {
         gbc.insets = new Insets(8, 8, 8, 8);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        // =========================
-        // ÍCONE / TOPO
-        // =========================
+        
+        //Icone/Topo
         JLabel lblIcon = new JLabel("📦", SwingConstants.CENTER);
         lblIcon.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 55));
 
@@ -54,9 +53,7 @@ public class UsuarioLoginView extends JFrame {
         gbc.insets = new Insets(0, 0, 10, 0);
         card.add(lblIcon, gbc);
 
-        // =========================
-        // TÍTULO
-        // =========================
+        //Titulo
         JLabel lblTitulo = new JLabel("Bem-vindo", SwingConstants.CENTER);
         lblTitulo.setFont(new Font("Segoe UI", Font.BOLD, 28));
         lblTitulo.setForeground(new Color(30, 41, 59));
@@ -77,9 +74,7 @@ public class UsuarioLoginView extends JFrame {
         gbc.insets = new Insets(0, 0, 25, 0);
         card.add(lblSubtitulo, gbc);
 
-        // =========================
-        // USUÁRIO
-        // =========================
+        //Usuario     
         gbc.gridwidth = 1;
 
         JLabel lblUsuario = new JLabel("Usuário");
@@ -104,9 +99,7 @@ public class UsuarioLoginView extends JFrame {
         gbc.gridwidth = 2;
         card.add(txtUsuario, gbc);
 
-        // =========================
-        // SENHA
-        // =========================
+        //Senha
         JLabel lblSenha = new JLabel("Senha");
         lblSenha.setFont(new Font("Segoe UI", Font.BOLD, 13));
         lblSenha.setForeground(new Color(51, 65, 85));
@@ -128,9 +121,7 @@ public class UsuarioLoginView extends JFrame {
         gbc.gridwidth = 2;
         card.add(txtSenha, gbc);
 
-        // =========================
-        // MOSTRAR SENHA
-        // =========================
+        //Mostrar Senha
         JCheckBox chkMostrarSenha = new JCheckBox("Mostrar senha");
         chkMostrarSenha.setBackground(Color.WHITE);
         chkMostrarSenha.setFocusPainted(false);
@@ -149,9 +140,7 @@ public class UsuarioLoginView extends JFrame {
         gbc.insets = new Insets(2, 0, 10, 0);
         card.add(chkMostrarSenha, gbc);
 
-        // =========================
-        // BOTÃO LOGIN
-        // =========================
+        //Botão Login
         btnLogin = new JButton("ENTRAR");
 
         btnLogin.setPreferredSize(new Dimension(250, 45));
@@ -169,9 +158,7 @@ public class UsuarioLoginView extends JFrame {
         gbc.insets = new Insets(15, 0, 10, 0);
         card.add(btnLogin, gbc);
 
-        // =========================
-        // BOTÃO CADASTRO
-        // =========================
+        //Botão Cadastro
         JButton btnCadastrar = new JButton("Não tem conta? Cadastre-se");
 
         btnCadastrar.setBorderPainted(false);
@@ -187,9 +174,7 @@ public class UsuarioLoginView extends JFrame {
         gbc.insets = new Insets(5, 0, 10, 0);
         card.add(btnCadastrar, gbc);
 
-        // =========================
-        // MENSAGEM
-        // =========================
+        //Mensagem
         lblMensagem = new JLabel(" ", SwingConstants.CENTER);
 
         lblMensagem.setFont(new Font("Segoe UI", Font.BOLD, 12));
@@ -198,31 +183,24 @@ public class UsuarioLoginView extends JFrame {
         gbc.insets = new Insets(10, 0, 0, 0);
         card.add(lblMensagem, gbc);
 
-        // =========================
-        // ADICIONA O CARD
-        // =========================
+        //Adiciona no card
         add(card);
 
-        // =========================
-        // AÇÕES
-        // =========================
-        this.getRootPane().setDefaultButton(btnLogin);
-
-        btnCadastrar.addActionListener(e ->
-                new UsuarioCadastroView().setVisible(true)
-        );
-
-        btnLogin.addActionListener(e -> realizarLogin());
+       // Ações
+            this.getRootPane().setDefaultButton(btnLogin);
+            // Chama a tela de cadastro
+            btnCadastrar.addActionListener(e -> new UsuarioCadastroView().setVisible(true));
+            // Chama o método que realiza o login
+            btnLogin.addActionListener(e -> realizarLogin());
 
         pack();
         setLocationRelativeTo(null);
     }
 
-    // --- Lógica inalterada 
+    //Lógica da pagina 
+    //Método que realiza o login.
     private void realizarLogin() {
-
         try {
-
             lblMensagem.setText("");
 
             String usuario = txtUsuario.getText().trim();
@@ -237,28 +215,24 @@ public class UsuarioLoginView extends JFrame {
             Usuario user = dao.login(usuario, senha);
 
             if (user != null) {
-
                 lblMensagem.setForeground(new Color(0, 150, 0));
                 lblMensagem.setText("Bem-vindo!");
-
+                //Chamando o método de abrir a home passando os dados do usuário.
                 abrirHome(user);
 
             } else {
-
                 lblMensagem.setForeground(Color.RED);
                 lblMensagem.setText("Usuário ou senha inválidos");
             }
 
         } catch (IllegalArgumentException ex) {
-
             lblMensagem.setForeground(Color.RED);
             lblMensagem.setText(ex.getMessage());
         }
     }
 
-    //metodo abre a pagina home e fecha o login 
+    //Método que abre a página inicial e fecha a tela de login. 
     private void abrirHome(Usuario usuario) {
-
         new HomeView(usuario).setVisible(true);
         dispose();
     }

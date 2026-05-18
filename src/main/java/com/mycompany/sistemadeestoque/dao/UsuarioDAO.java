@@ -11,8 +11,9 @@ import java.sql.SQLException;
 
 public class UsuarioDAO {
 
+    //Método de cadastro de usuário.
     public boolean cadastrar(Usuario user){
-        String sql = "INSERT INTO usuarios (usuario, senha_hash) VALUES (?, ?)";
+        String sql = "insert into usuarios (usuario, senha_hash) values (?, ?)";
        
         if(usuarioExiste(user.getUsuario())){
             throw new IllegalArgumentException("Usuário já existe!");
@@ -39,9 +40,10 @@ public class UsuarioDAO {
         return true;
     }
 
+    //Método de login de usuário.
     public Usuario login(String usuario, String senha){
 
-        String sql = "SELECT * FROM usuarios WHERE usuario = ?";
+        String sql = "select * from usuarios where usuario = ?";
 
         try(
             Connection conn = Conexao.conectar();
@@ -79,9 +81,10 @@ public class UsuarioDAO {
             return null;
         }
     }
-
+    
+    //Método que verifica se o nome de usuário existe no banco de dados.
     private boolean usuarioExiste(String usuario){
-        String sql = "SELECT id FROM usuarios WHERE usuario = ?";
+        String sql = "select id from usuarios where usuario = ?";
 
         try(
             Connection conn = Conexao.conectar();

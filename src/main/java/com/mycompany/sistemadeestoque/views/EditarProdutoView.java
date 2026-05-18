@@ -5,18 +5,17 @@ import com.mycompany.sistemadeestoque.models.Produto;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-
-// Exemplo de como a tela de edição deve receber os dados
 public class EditarProdutoView extends JDialog {
-    private JTextField txtNome, txtTipo, txtValor, txtQuantidade;
+    private JTextField txtNome, txtValor, txtQuantidade;
+    private JComboBox<String> comboTipo; // Substituído JTextField por JComboBox
     private Produto produtoRef;
 
     public EditarProdutoView(Produto p) {
@@ -24,9 +23,9 @@ public class EditarProdutoView extends JDialog {
         
         setTitle("Editar Produto: " + p.getNome());
         setModal(true);
-        setSize(400, 300);
+        setSize(400, 320); // Ajustado levemente a altura para acomodar bem o ComboBox
         setLocationRelativeTo(null);
-        setLayout(new GridBagLayout()); // Usando GridBag para melhor controle
+        setLayout(new GridBagLayout());
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
@@ -34,7 +33,11 @@ public class EditarProdutoView extends JDialog {
 
         // --- Inicializando os Campos com os dados do Produto ---
         txtNome = new JTextField(p.getNome(), 20);
-        txtTipo = new JTextField(p.getTipo(), 20);
+        
+        // Inicializa o ComboBox com as opções e define a categoria atual do produto
+        comboTipo = new JComboBox<>(new String[]{"Todos", "Eletrônicos", "Limpeza", "Alimentos"});
+        comboTipo.setSelectedItem(p.getTipo()); 
+        
         txtValor = new JTextField(String.valueOf(p.getValor()), 20);
         txtQuantidade = new JTextField(String.valueOf(p.getQuantidadeEstoque()), 20);
 
@@ -46,11 +49,11 @@ public class EditarProdutoView extends JDialog {
         gbc.gridx = 1;
         add(txtNome, gbc);
 
-        // Linha 1: Tipo
+        // Linha 1: Categoria / Tipo
         gbc.gridx = 0; gbc.gridy = 1;
-        add(new JLabel("Tipo:"), gbc);
+        add(new JLabel("Categoria:"), gbc);
         gbc.gridx = 1;
-        add(txtTipo, gbc);
+        add(comboTipo, gbc); // Adicionando o ComboBox no lugar do JTextField
 
         // Linha 2: Valor
         gbc.gridx = 0; gbc.gridy = 2;
@@ -66,7 +69,7 @@ public class EditarProdutoView extends JDialog {
 
         // Linha 4: Botão Salvar
         gbc.gridx = 0; gbc.gridy = 4;
-        gbc.gridwidth = 2; // Ocupa as duas colunas
+        gbc.gridwidth = 2;
         JButton btnSalvar = new JButton("Salvar Alterações");
         btnSalvar.setBackground(new Color(0, 123, 255));
         btnSalvar.setForeground(Color.WHITE);
@@ -75,18 +78,28 @@ public class EditarProdutoView extends JDialog {
         // --- Ação do Botão ---
         btnSalvar.addActionListener(e -> {
             try {
+                // Validação básica de preenchimento
+                String nome = txtNome.getText().trim();
+                String tipoSelecionado = (String) comboTipo.getSelectedItem();
+                
+                if (nome.isEmpty() || tipoSelecionado == null) {
+                    throw new IllegalArgumentException("Preencha todos os campos obrigatórios.");
+                }
+
                 // Atualiza o objeto com os novos valores da tela
-                produtoRef.setNome(txtNome.getText());
-                produtoRef.setTipo(txtTipo.getText());
-                produtoRef.setValor(Float.parseFloat(txtValor.getText()));
+                produtoRef.setNome(nome);
+                produtoRef.setTipo(tipoSelecionado); // Resgata o valor selecionado no ComboBox
+                produtoRef.setValor(Float.parseFloat(txtValor.getText().replace(",", ".")));
                 produtoRef.setQuantidadeEstoque(Integer.parseInt(txtQuantidade.getText()));
 
-                // Chama o método atualizar que você já fez no DAO
+                // Chama o método atualizar do seu DAO
                 ProdutoDAO dao = new ProdutoDAO();
                 dao.atualizar(produtoRef);
 
                 JOptionPane.showMessageDialog(this, "Produto atualizado com sucesso!");
-                dispose(); // Fecha esta janela
+                dispose(); // Fecha a janela de edição
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Erro: Verifique se o valor e a quantidade foram digitados corretamente.");
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Erro ao validar dados: " + ex.getMessage());
             }

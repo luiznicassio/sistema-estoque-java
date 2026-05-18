@@ -9,33 +9,29 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 
+//Classe View de cadastro de usuário.
 public class UsuarioCadastroView extends JFrame {
 
     private JTextField txtUsuario;
     private JPasswordField txtSenha;
     private JButton btnSalvar;
-
     private JLabel lblMensagem;
 
+    //Construtor. 
     public UsuarioCadastroView() {
 
         setTitle("Cadastro de Usuário");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
 
-        // Fundo da janela
+        //Fundo da janela
         getContentPane().setBackground(new Color(15, 23, 42));
         setLayout(new GridBagLayout());
 
-        // =========================
         // CARD PRINCIPAL
-        // =========================
         JPanel card = new JPanel(new GridBagLayout());
-
         card.setBackground(Color.WHITE);
-
         card.setPreferredSize(new Dimension(420, 500));
-
         card.setBorder(BorderFactory.createCompoundBorder(
                 new LineBorder(new Color(220, 220, 220), 1, true),
                 new EmptyBorder(35, 35, 35, 35)
@@ -46,11 +42,8 @@ public class UsuarioCadastroView extends JFrame {
         gbc.insets = new Insets(8, 8, 8, 8);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        // =========================
         // ÍCONE
-        // =========================
         JLabel lblIcon = new JLabel("👤", SwingConstants.CENTER);
-
         lblIcon.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 55));
 
         gbc.gridx = 0;
@@ -83,7 +76,6 @@ public class UsuarioCadastroView extends JFrame {
 
       
         // USUÁRIO
-       
         gbc.gridwidth = 1;
 
         JLabel lblUsuario = new JLabel("Usuário");
@@ -108,8 +100,7 @@ public class UsuarioCadastroView extends JFrame {
         card.add(txtUsuario, gbc);
 
 
-        // SENHA
-
+        //SENHA
         JLabel lblSenha = new JLabel("Senha");
         lblSenha.setFont(new Font("Segoe UI", Font.BOLD, 13));
         lblSenha.setForeground(new Color(51, 65, 85));
@@ -131,16 +122,13 @@ public class UsuarioCadastroView extends JFrame {
 
         card.add(txtSenha, gbc);
 
-        // =========================
         // MOSTRAR SENHA
-        // =========================
         JCheckBox chkMostrarSenha = new JCheckBox("Mostrar senha");
         chkMostrarSenha.setBackground(Color.WHITE);
         chkMostrarSenha.setFocusPainted(false);
         chkMostrarSenha.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         
         chkMostrarSenha.addItemListener(e -> {
-
             txtSenha.setEchoChar(
                     e.getStateChange() == ItemEvent.SELECTED
                             ? (char) 0

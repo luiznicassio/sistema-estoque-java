@@ -1,16 +1,16 @@
-C:\Users\nicas\OneDrive\Área de Trabalho\SistemaDeEstoque\src\main\java\com\mycompany\sistemadeestoque\dao\ProdutoDAO.java
-C:\Users\nicas\OneDrive\Área de Trabalho\SistemaDeEstoque\src\main\java\com\mycompany\sistemadeestoque\dao\UsuarioDAO.java
-C:\Users\nicas\OneDrive\Área de Trabalho\SistemaDeEstoque\src\main\java\com\mycompany\sistemadeestoque\Main.java
-C:\Users\nicas\OneDrive\Área de Trabalho\SistemaDeEstoque\src\main\java\com\mycompany\sistemadeestoque\models\Produto.java
-C:\Users\nicas\OneDrive\Área de Trabalho\SistemaDeEstoque\src\main\java\com\mycompany\sistemadeestoque\models\Usuario.java
-C:\Users\nicas\OneDrive\Área de Trabalho\SistemaDeEstoque\src\main\java\com\mycompany\sistemadeestoque\Sistema.java
-C:\Users\nicas\OneDrive\Área de Trabalho\SistemaDeEstoque\src\main\java\com\mycompany\sistemadeestoque\util\Conexao.java
-C:\Users\nicas\OneDrive\Área de Trabalho\SistemaDeEstoque\src\main\java\com\mycompany\sistemadeestoque\util\SenhaUtil.java
-C:\Users\nicas\OneDrive\Área de Trabalho\SistemaDeEstoque\src\main\java\com\mycompany\sistemadeestoque\views\EditarProdutoView.java
-C:\Users\nicas\OneDrive\Área de Trabalho\SistemaDeEstoque\src\main\java\com\mycompany\sistemadeestoque\views\HomeView.java
-C:\Users\nicas\OneDrive\Área de Trabalho\SistemaDeEstoque\src\main\java\com\mycompany\sistemadeestoque\views\paineis\CadastroProdutoPanel.java
-C:\Users\nicas\OneDrive\Área de Trabalho\SistemaDeEstoque\src\main\java\com\mycompany\sistemadeestoque\views\paineis\DashboardPanel.java
-C:\Users\nicas\OneDrive\Área de Trabalho\SistemaDeEstoque\src\main\java\com\mycompany\sistemadeestoque\views\paineis\ListaProdutosPanel.java
-C:\Users\nicas\OneDrive\Área de Trabalho\SistemaDeEstoque\src\main\java\com\mycompany\sistemadeestoque\views\UsuarioCadastroView.java
-C:\Users\nicas\OneDrive\Área de Trabalho\SistemaDeEstoque\src\main\java\com\mycompany\sistemadeestoque\views\UsuarioLoginView.java
-C:\Users\nicas\OneDrive\Área de Trabalho\SistemaDeEstoque\src\main\java\com\mycompany\sistemadeestoque\views\utils\UIFactory.java
+C:\PROJETOS PROGRAMAÇAO\sistema-estoque-java\src\main\java\com\mycompany\sistemadeestoque\dao\ProdutoDAO.java
+C:\PROJETOS PROGRAMAÇAO\sistema-estoque-java\src\main\java\com\mycompany\sistemadeestoque\dao\UsuarioDAO.java
+C:\PROJETOS PROGRAMAÇAO\sistema-estoque-java\src\main\java\com\mycompany\sistemadeestoque\Main.java
+C:\PROJETOS PROGRAMAÇAO\sistema-estoque-java\src\main\java\com\mycompany\sistemadeestoque\models\Produto.java
+C:\PROJETOS PROGRAMAÇAO\sistema-estoque-java\src\main\java\com\mycompany\sistemadeestoque\models\Usuario.java
+C:\PROJETOS PROGRAMAÇAO\sistema-estoque-java\src\main\java\com\mycompany\sistemadeestoque\Sistema.java
+C:\PROJETOS PROGRAMAÇAO\sistema-estoque-java\src\main\java\com\mycompany\sistemadeestoque\util\Conexao.java
+C:\PROJETOS PROGRAMAÇAO\sistema-estoque-java\src\main\java\com\mycompany\sistemadeestoque\util\SenhaUtil.java
+C:\PROJETOS PROGRAMAÇAO\sistema-estoque-java\src\main\java\com\mycompany\sistemadeestoque\views\EditarProdutoView.java
+C:\PROJETOS PROGRAMAÇAO\sistema-estoque-java\src\main\java\com\mycompany\sistemadeestoque\views\HomeView.java
+C:\PROJETOS PROGRAMAÇAO\sistema-estoque-java\src\main\java\com\mycompany\sistemadeestoque\views\paineis\CadastroProdutoPanel.java
+C:\PROJETOS PROGRAMAÇAO\sistema-estoque-java\src\main\java\com\mycompany\sistemadeestoque\views\paineis\DashboardPanel.java
+C:\PROJETOS PROGRAMAÇAO\sistema-estoque-java\src\main\java\com\mycompany\sistemadeestoque\views\paineis\ListaProdutosPanel.java
+C:\PROJETOS PROGRAMAÇAO\sistema-estoque-java\src\main\java\com\mycompany\sistemadeestoque\views\UsuarioCadastroView.java
+C:\PROJETOS PROGRAMAÇAO\sistema-estoque-java\src\main\java\com\mycompany\sistemadeestoque\views\UsuarioLoginView.java
+C:\PROJETOS PROGRAMAÇAO\sistema-estoque-java\src\main\java\com\mycompany\sistemadeestoque\views\utils\UIFactory.java
